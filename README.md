@@ -113,8 +113,9 @@ The generated Verilog will be stored at `./ generated-src/Tile.v`.
 ### Running ASSURE for RTL Obfuscation (Optional)
 
 One key update in RDF 2021 is RTL obfuscation with ASSURE.
-ASSURE is already installed in RDF-2021 Docker image, which you can find at [`./submodules/assure-bin`](./submodules/assure-bin).
+ASSURE is already installed in RDF-2021 Docker image, which you can find at `~/datc-rdf/submodules/assure-bin`.
 The directory includes the user guide of ASSURE: `~/datc-rdf/submodules/assure-bin/doc`.
+Or, you can check out [this page](./submodules/assure-bin)
 
 To try it with the Chisel design, here's an example command for it.
 
