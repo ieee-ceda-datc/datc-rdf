@@ -1,0 +1,9 @@
+[submodule "submodules/RDF-2020"]
+	path = submodules/RDF-2020
+	url = https://github.com/ieee-ceda-datc/RDF-2020.git
+[submodule "submodules/OpenROAD-flow-scripts"]
+	path = submodules/OpenROAD-flow-scripts
+	url = https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts.git
+[submodule "submodules/Fault"]
+	path = submodules/Fault
+	url = https://github.com/Cloud-V/Fault.git
