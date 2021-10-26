@@ -1,0 +1,5 @@
+run:
+	dc_shell -f ../../../../../../common/scripts/run_area.tcl
+
+clean:
+	rm -rf out *.log

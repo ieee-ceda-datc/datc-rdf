@@ -1,0 +1,11 @@
+../../src/crp.v
+../../src/des3.v
+../../src/key_sel3.v
+../../src/sbox1.v
+../../src/sbox2.v
+../../src/sbox3.v
+../../src/sbox4.v
+../../src/sbox5.v
+../../src/sbox6.v
+../../src/sbox7.v
+../../src/sbox8.v

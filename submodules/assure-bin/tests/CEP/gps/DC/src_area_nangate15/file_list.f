@@ -1,0 +1,9 @@
+../../src/cacode.v
+../../src/gps.v
+../../src/pcode.v
+../../../aes/src/aes_128.v
+../../../aes/src/aes_192.v
+../../../aes/src/aes_top_axi4lite.v
+../../../aes/src/aes_top_wb.v
+../../../aes/src/round.v
+../../../aes/src/table.v

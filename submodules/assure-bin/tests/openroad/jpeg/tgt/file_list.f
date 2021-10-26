@@ -1,0 +1,15 @@
++incdir+../src
++incdir+../src/include
+../src/dct_mac.v
+../src/dctu.v
+../src/dctub.v
+../src/dct.v
+../src/div_su.v
+../src/div_uu.v
+../src/zigzag.v
+../src/fdct.v
+../src/jpeg_qnr.v
+../src/jpeg_rle1.v
+../src/jpeg_rzs.v
+../src/jpeg_rle.v
+../src/jpeg_encoder.v

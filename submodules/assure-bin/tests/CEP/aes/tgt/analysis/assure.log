@@ -1,0 +1,25 @@
+INFO    : 
+INFO    : ------------------------------------------------------------------------------------
+INFO    : | Number of input key bits         = 512
+INFO    : ------------------------------------------------------------------------------------
+DEBUG   : Design parsing completed in 0.1728 seconds
+INFO    : 
+INFO    : ------------------------------------------------------------------------------------
+INFO    : | Original module                    = "xS"
+INFO    : ------------------------------------------------------------------------------------
+INFO    : | Total number of constants       = 256 CONSTANTS  / 2048 BITS
+INFO    : | Total number of operations      =   0 OPERATIONS  /    0 BITS
+INFO    : | Total number of branches        =   0 BRANCHES  /    0 BITS
+DEBUG   : ------------------------------------------------------------------------------------
+INFO    : | Total number of bits needed for obfuscation  = 2048 BITS
+INFO    : ------------------------------------------------------------------------------------
+INFO    : ------------------------------------------------------------------------------------
+INFO    : | Total number of modules = 1
+INFO    : ------------------------------------------------------------------------------------
+INFO    : | --Const bitsize = 8 -- Number of CONSTANTS = 256
+INFO    : | Total number of constants       = 256 CONSTANTS / 2048 BITS
+INFO    : | Total number of operations      = 0 OPERATIONS / 0 BITS
+INFO    : | Total number of branches        = 0 BRANCHES / 0 BITS
+INFO    : ------------------------------------------------------------------------------------
+INFO    : | Total number of bits needed for obfuscation = 2048 BITS
+INFO    : ------------------------------------------------------------------------------------

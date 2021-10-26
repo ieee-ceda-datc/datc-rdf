@@ -1,0 +1,29 @@
+FILELIST ?= file_list.f
+OPT      ?= --obfuscate --generate-conformal=on
+DIR      ?= work
+KEY      ?= ./input.key
+KEY_SIZE ?= 128
+SYN      ?= dc_cfg/area_nangate15.cfg
+
+all: obfuscation
+
+analyze:
+	../../../../bin/assure -f ${FILELIST} --top ${TOP} -o ${DIR} --analyze-design
+
+obfuscation:
+	../../../../bin/assure -f ${FILELIST} --top ${TOP} --input-key ${KEY} -o ${DIR} -s ${SYN} ${OPT}
+
+key-generation:
+	../../../../bin/generate_key -b ${KEY_SIZE} -o ${KEY}
+
+verify_formality:
+	cd ${DIR}/formality && fm_shell -f verify_${TOP}_0_obf.tcl
+
+verify_conformal:
+	cd ${DIR}/conformal && lec -LPGXL -NOGui -TclMode verify_${TOP}_0_obf.tcl
+
+clean:
+	rm -rf *.txt *.py *.out *~ *.log fm_shell* formality*
+
+distclean: clean
+	rm -rf ${DIR} FM_WORK
