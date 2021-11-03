@@ -7,3 +7,12 @@
 [submodule "submodules/Fault"]
 	path = submodules/Fault
 	url = https://github.com/Cloud-V/Fault.git
+[submodule "submodules/datc-rdf-flow-tuner"]
+	path = submodules/datc-rdf-flow-tuner
+	url = https://github.com/ieee-ceda-datc/datc-rdf-flow-tuner.git
+[submodule "submodules/datc-rdf-Metrics4ML"]
+	path = submodules/datc-rdf-Metrics4ML
+	url = https://github.com/ieee-ceda-datc/datc-rdf-Metrics4ML.git
+[submodule "submodules/datc-rdf-calibrations"]
+	path = submodules/datc-rdf-calibrations
+	url = https://github.com/ieee-ceda-datc/datc-rdf-calibrations.git
