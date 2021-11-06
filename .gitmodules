@@ -16,3 +16,6 @@
 [submodule "submodules/datc-rdf-calibrations"]
 	path = submodules/datc-rdf-calibrations
 	url = https://github.com/ieee-ceda-datc/datc-rdf-calibrations.git
+[submodule "submodules/RosettaStone"]
+	path = submodules/RosettaStone
+	url = https://github.com/ABKGroup/RosettaStone
