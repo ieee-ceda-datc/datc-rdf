@@ -54,7 +54,7 @@ cd $(git rev-parse --show-toplevel)
 And build the Docker image using the following command.
 
 ```bash
-docker build ./ -t datc-rdf
+docker build ./ -t rdf
 ```
 
 
@@ -66,21 +66,29 @@ You can check whether RDF-2021 image is built properly by the following commands
 docker image ls
 ```
 
-You should see the Docker image named `datc-rdf` as follows.
+You should see the Docker image named `rdf` as follows.
 
 
 ```bash
 datc-rdf$ docker image ls
-REPOSITORY  TAG     IMAGE ID      CREATED     SIZE
-datc-rdf    latest  cba3c1452e87  1 hours ago 6.71GB
+REPOSITORY  TAG     IMAGE ID      CREATED             SIZE
+rdf         latest  f52beda50e54  About an hour ago   3.72GB
 ```
 
 To check whether you can run RDF-2021, run the following command, which creates a Docker container from the RDF-2021 image.
 
 ```bash
-docker run --rm -it -v $(pwd):/root/datc-rdf datc-rdf
+docker run --rm -it \
+    -v $(pwd)/submodules/OpenROAD-flow-scripts/flow:/openroad-flow \
+    -v $(pwd)/example:/root/example \
+    jinwookjung/rdf
 ```
 
+Setup environment.
+
+```bash
+source ./setenv.sh
+```
 
 Running Example Chisel Design
 ---
@@ -89,8 +97,7 @@ Here, we describe how to make SP&R for a Chisel design with DATC RDF-2021.
 In your Docker container, go to the home directory, i.e., `cd ~/`, and create a workspace under the `datc-rdf` directory.
 
 ```bash
-cd datc-rdf
-mkdir workspace && cd workspace
+cd workspace
 ```
 
 We use `riscv-mini`, is a simple RISC-V 3-stage pipeline written in Chisel ([Link](https://github.com/ucb-bar/riscv-mini)). First, clone the design.
@@ -120,13 +127,47 @@ Or, you can check out [this page](./submodules/assure-bin)
 To try it with the Chisel design, here's an example command for it.
 
 ```bash
-./assure-bin/bin/assure \
+generate_key -b 512 -o key_512bit.txt
+
+assure \
     --top Core \
     --enable-key-reuse \
     --obfuscate-ops \
     --obfuscate-branch \
     --input-key=./key_512bit.txt \
-    ./riscv-mini/generated-src/Tile.v
+    ../riscv-mini/generated-src/Tile.v
+```
+
+### Synthesis
+
+`config.mk`.
+
+```bash
+export DESIGN_NICKNAME = riscv-mini
+export DESIGN_NAME = Core
+export PLATFORM    = sky130hd
+
+export VERILOG_FILES = $(sort $(wildcard /root/workspace/riscv-mini/generated-src/*.v))
+export SDC_FILE      = ./constraint.sdc
+
+export CORE_UTILIZATION = 30
+export CORE_ASPECT_RATIO = 1
+export CORE_MARGIN = 2
+
+export PLACE_DENSITY = 0.72
+export ABC_CLOCK_PERIOD_IN_PS = 100000
+```
+
+`constraint.sdc`.
+
+```tcl
+create_clock [get_ports clock] -period 10
+```
+
+Run.
+
+```bash
+make synth DESIGN_CONFIG=./config.mk
 ```
 
 
@@ -137,12 +178,16 @@ Another key update of RDF-2021 is DFT support with Fault tool chain. You can fin
 During the Docker build process, Fault is already installed in the RDF-2021 Docker image.  You can try it, for example, on the `riscv-mini` with the following script.
 
 ```bash
-/root/bin/fault chain \
+mv results/sky130hd/riscv-mini/base/1_synth.v results/sky130hd/riscv-mini/base/1_synth.orig.v
+
+fault chain \
     --clock clock --reset reset \
-    --liberty ~/datc-rdf/submodules/OpenROAD-flow-scripts/flow/platforms/sky130hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib \
+    --liberty /openroad-flow/platforms/sky130hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib \
     --dff sky130_fd_sc_hd__dfrtp_1,sky130_fd_sc_hd__dfxtp_1 \
     --output 1_synth.fault.v \
-    /workspace/OpenROAD-flow-scripts/flow/results/sky130hd/riscv-mini/base.bak/1_synth.v 
+    ./results/sky130hd/riscv-mini/base/1_synth.orig.v
+
+ln -s 1_synth.fault.v results/sky130hd/riscv-mini/base/1_synth.v
 ```
 
 
