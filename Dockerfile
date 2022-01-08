@@ -25,7 +25,7 @@ RUN yum update -y \
     && yum install -y git224 \
 # For Fault
     && pip3 install pyverilog --no-cache-dir \
-    && git clone https://github.com/Cloud-V/Fault.git /opt/Fault && cd /opt/Fault && swift install.swift \
+    && git clone https://github.com/Cloud-V/Fault.git && cd Fault && INSTALL_DIR=/opt/Fault swift install.swift \
     && yum clean all
 
 # ASSURE
@@ -41,10 +41,10 @@ RUN /etc/DependencyInstaller.sh -runtime
 COPY --from=openroad/lsoracle /LSOracle/build/core/lsoracle ./tools/build/LSOracle/bin/lsoracle
 COPY --from=openroad/lsoracle /LSOracle/core/test.ini ./tools/build/LSOracle/share/lsoracle/test.ini
 COPY --from=openroad/lsoracle /LSOracle/build/yosys-plugin/oracle.so /openroad/tools/build/yosys/share/yosys/plugins/
-COPY ./submodules/OpenROAD-flow-scripts/setup_env.sh .
+# COPY ./submodules/OpenROAD-flow-scripts/setup_env.sh .
 # COPY ./submodules/OpenROAD-flow-scripts/flow ./flow
 # RUN chmod o+rw -R /OpenROAD-flow
 
-ENV PATH="/openroad/tools/install/OpenROAD/bin:/openroad/tools/install/yosys/bin:/openroad/tools/install/LSOracle/bin:/assure-bin/bin:/opt/Fault/bin/fault:${PATH}"
+ENV PATH="/openroad/tools/install/OpenROAD/bin:/openroad/tools/install/yosys/bin:/openroad/tools/install/LSOracle/bin:/assure-bin/bin:/opt/Fault:${PATH}"
 
 WORKDIR /root
